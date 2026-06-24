@@ -16,9 +16,12 @@ mongoose.connect(MONGODB_URI).then(() => {
     });
 
     // 1. QR Code generate karne ke liye
-    client.on('qr', (qr) => {
-        console.log('--- NEECHE WALE QR CODE KO APNE SPARE WHATSAPP SE SCAN KAREIN ---');
-        qrcode.generate(qr, { small: true });
+   
+   client.on('qr', (qr) => {
+        const qrLink = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qr)}`;
+        console.log('--- QR CODE GENERATED ---');
+        console.log('Is link ko copy karke browser mein kholein aur scan karein:');
+        console.log(qrLink);
     });
 
     // 2. Jab Bot successfully login ho jaye
