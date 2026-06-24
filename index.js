@@ -1,18 +1,12 @@
-const { Client, RemoteAuth } = require('whatsapp-web.js');
-const { MongoStore } = require('wwebjs-mongo');
-const mongoose = require('mongoose');
+const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
-const MONGODB_URI = 'mongodb+srv://alphasurveillancesystem_db_user:WBhZ1ihzkzKn4edc@cluster0.9iffjqu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
+const client = new Client({
+    authStrategy: new LocalAuth({
+        dataPath: './sessions'
+    }),
+    puppeteer: { args: ['--no-sandbox'] }
 
-mongoose.connect(MONGODB_URI).then(() => {
-    const store = new MongoStore({ mongoose: mongoose });
-    const client = new Client({
-        authStrategy: new RemoteAuth({
-            store: store,
-            backupSyncIntervalMs: 300000
-        }),
-        puppeteer: { args: ['--no-sandbox'] }
     });
 
     // 1. QR Code generate karne ke liye
