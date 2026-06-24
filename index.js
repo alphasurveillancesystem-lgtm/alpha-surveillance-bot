@@ -51,4 +51,3 @@ const client = new Client({
     });
 
     client.initialize();
-});
